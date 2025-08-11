@@ -1,0 +1,10 @@
+[INFO] 11-08-2025 22:23:33 [main] [Tests.TestBase] - Driver is opened
+[INFO] 11-08-2025 22:23:51 [main] [Tests.TestBase] - Page Redirected to the URL
+[INFO] 11-08-2025 22:23:52 [main] [Listeners.ITest] - Test Case verifyPlaceOrderAndRegisterWhileCheckout started
+[INFO] 11-08-2025 22:24:20 [main] [pages.P04_HomeAfterLogin] - Checking if logged-in text is visible and correct: 'Mohamed Hamdy'
+[INFO] 11-08-2025 22:24:24 [main] [Tests.EndToEndTest] - Delivery Address Details Verified.
+[INFO] 11-08-2025 22:24:24 [main] [Tests.EndToEndTest] - Billing Address Details Verified.
+[INFO] 11-08-2025 22:24:24 [main] [Tests.EndToEndTest] - Total Amount Verified.
+[INFO] 11-08-2025 22:24:28 [main] [pages.P10_DeleteConfirmation] - Checking visibility of 'ACCOUNT DELETED!' message...
+[INFO] 11-08-2025 22:24:28 [main] [pages.P10_DeleteConfirmation] - 'ACCOUNT DELETED!' message is visible.
+[INFO] 11-08-2025 22:24:28 [main] [pages.P10_DeleteConfirmation] - Clicking on 'Continue' button after account deletion...
