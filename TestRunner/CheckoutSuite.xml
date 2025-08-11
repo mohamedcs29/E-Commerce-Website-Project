@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Checkout Suite">
+    <listeners>
+        <listener class-name="Listeners.IInvokedMethodListenerImpl"/>
+        <listener class-name="Listeners.ITest"/>
+    </listeners>
+    <test name="Checkout Test">
+        <classes>
+            <class name="Tests.TC09_CheckoutTest"/>
+        </classes>
+    </test>
+</suite>

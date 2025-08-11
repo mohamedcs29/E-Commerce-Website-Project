@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Register Suite">
+    <listeners>
+        <listener class-name="Listeners.IInvokedMethodListenerImpl"/>
+        <listener class-name="Listeners.ITest"/>
+    </listeners>
+    <test name="Register Test">
+        <classes>
+            <class name="Tests.TC02_RegisterTest"/>
+        </classes>
+    </test>
+</suite>

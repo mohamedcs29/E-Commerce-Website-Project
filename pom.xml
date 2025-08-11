@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>ECommerceWebsite</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <seleniumVersion>4.33.0</seleniumVersion>
+        <testNGVersion>7.11.0</testNGVersion>
+        <restAssured>5.5.5</restAssured>
+        <allure.version>2.27.0</allure.version>
+        <aspectj.version>1.9.20.1</aspectj.version>
+        <suite.BrandProduct>TestRunner/BrandProductSuite.xml</suite.BrandProduct>
+        <suite.Carts>TestRunner/CartsSuite.xml</suite.Carts>
+        <suite.Category>TestRunner/CategorySuite.xml</suite.Category>
+        <suite.Checkout>TestRunner/CheckoutSuite.xml</suite.Checkout>
+        <suite.ContactUsForm>TestRunner/ContactUsFormSuite.xml</suite.ContactUsForm>
+        <suite.Home>TestRunner/HomeSuite.xml</suite.Home>
+        <suite.Login>TestRunner/LoginSuite.xml</suite.Login>
+        <suite.Logout>TestRunner/LogoutSuite.xml</suite.Logout>
+        <suite.Payment>TestRunner/PaymentSuite.xml</suite.Payment>
+        <suite.Products>TestRunner/ProductsSuite.xml</suite.Products>
+        <suite.Register>TestRunner/RegisterSuite.xml</suite.Register>
+        <suite.Regression>TestRunner/RegressionSuite.xml</suite.Regression>
+        <suite.TestCases>TestRunner/TestCasesSuite.xml</suite.TestCases>
+        <suite.EndToEnd>TestRunner/EndToEndSuite.xml</suite.EndToEnd>
+
+
+        <allureMaven>2.12.0</allureMaven>
+        <allureApi.version>2.27.0</allureApi.version>
+    </properties>
+    <build>
+        <directory>test_outputs/target</directory>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allureMaven}</version>
+                <!--           to make an allure serve report after each test       -->
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>
+                                serve
+                            </goal>
+
+                        </goals>
+
+                    </execution>
+                </executions>
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>
+                </configuration>
+            </plugin>
+            <!--  Add the following options to your maven-surefire-plugin  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suite.EndToEnd}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <profiles>
+        <profile>
+            <id>RegressionProfile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <configuration>
+                            <reportVersion>${allure.version}</reportVersion>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${suite.Regression}</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>HomeProfile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <configuration>
+                            <reportVersion>${allure.version}</reportVersion>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${suite.Home}</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>EndToEndProfile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <configuration>
+                            <reportVersion>${allure.version}</reportVersion>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${suite.EndToEnd}</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
+    <dependencies>
+        <!--  https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java  -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${seleniumVersion}</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/org.testng/testng  -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testNGVersion}</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/io.rest-assured/rest-assured  -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restAssured}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/org.slf4j/slf4j-simple  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.17</version>
+            <scope>test</scope>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/org.slf4j/slf4j-api  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core  -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.25.0</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/com.google.code.gson/gson  -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.13.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/io.qameta.allure/allure-testng  -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot  -->
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/com.assertthat/selenium-shutterbug  -->
+        <dependency>
+            <groupId>com.assertthat</groupId>
+            <artifactId>selenium-shutterbug</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/io.qameta.allure/allure-plugin-api  -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-plugin-api</artifactId>
+            <version>${allureApi.version}</version>
+        </dependency>
+        <!--  https://mvnrepository.com/artifact/org.aspectj/aspectjweaver  -->
+
+        <!-- Screenshot Tools -->
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.assertthat</groupId>
+            <artifactId>selenium-shutterbug</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Awaitility -->
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
+    </dependencies>
+</project>
